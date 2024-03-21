@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DISCREATE MATHEMATICS MID TERM PROJECT : Set Operations Tool</title>
+<body>
+    <h1 class="heading">SET OPERATIONS TOOL </h1>
+    <label for="setA">Set A:</label>
+    <input type="text" id="setA" placeholder="Enter set A">
+
+    <label for="setB">Set B:</label>
+    <input type="text" id="setB" placeholder="Enter set B"> <br>
+
+    <button onclick="performOperation(union)">Union</button>
+    <button onclick="performOperation(intersection)">Intersection</button>
+    <button onclick="performOperation(complement)">Complement</button>
+    <button onclick="performOperation(difference)">Difference</button>
+    <button onclick="performOperation(symmetricDifference)">Symmetric Difference</button>
+    <button onclick="performOperation(powerSet)">Power Set</button>
+
+    <div id="result"></div>
+
+    
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #0c9dc13d;
+            margin: 0;
+            padding: 0;
+        }
+
+.heading {
+  font-size: 45px;
+  color: #055485;
+  animation: slideIn 7s ease infinite;
+}
+
+
+
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 15px;
+            cursor: pointer;
+            margin: 18px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.2s ease-in-out;
+            transition: transform 0.5s ease;
+        }
+
+        button:hover {
+            background-color: #5b096f;
+            transform: scale(1.2);
+        }
+
+        #result{
+            margin-top: 20px;
+            font-size: 34px;
+            color: #000000;
+        }
+
+    </style>
+
+    <script>
+        function performOperation(operationFunction) {
+            const setA = new Set(document.getElementById('setA').value.split(','));
+            const setB = new Set(document.getElementById('setB').value.split(','));
+
+            const result = operationFunction(setA, setB);
+            displayResult(result);
+        }
+
+// Set Operations Functions
+// Union of sets A and B
+
+        function union(setA, setB) {
+            return new Set([...setA, ...setB]);
+        }
+        
+// Intersection of sets A and B
+
+        function intersection(setA, setB) {
+            return new Set([...setA].filter(x => setB.has(x)));
+        }
+
+// Complement of set A with respect to set B        
+
+        function complement(setA, setB) {
+            return new Set([...setA].filter(x => !setB.has(x)));
+        }
+
+// Difference of sets A and B (complement of B in A)
+
+        function difference(setA, setB) {
+            return complement(setA, setB);
+        }
+
+// Symmetric Difference of sets A and B        
+
+        function symmetricDifference(setA, setB) {
+            return union(complement(setA, setB), complement(setB, setA));
+        }
+// Power Set of set A
+        function powerSet(setA) {
+            const powerSet = [[]];
+
+            setA.forEach(element => {
+                const subsets = powerSet.map(subset => [...subset, element]);
+                powerSet.push(...subsets);
+            });
+
+            return powerSet.map(subset => new Set(subset.map(String)));
+        }
+
+// Function to display the result
+        function displayResult(result) {
+            document.getElementById('result').textContent = `Result: { ${[...result].map(set => `{${[...set].join(',')}}`).join(', ')} }`;
+        }
+    </script>
+</head>
+</body>
+</html>
