@@ -2,140 +2,7 @@
 <html>
 <head>
     <title>DISCRETE MATHEMATICS MID TERM PROJECT: Set Operations Tool</title>
-
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background-color: #0c9dc13d;
-            margin: 0;
-            padding: 0;
-        }
-
-        .heading {
-            font-size: 45px;
-            color: #055485;
-            animation: slideIn 7s ease infinite;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-size: 18px;
-            color: #2c3e50;
-        }
-
-        input {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 0.1px solid black;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-
-        button {
-            padding: 15px;
-            cursor: pointer;
-            margin: 18px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.2s ease-in-out, transform 0.5s ease;
-        }
-
-        button:hover {
-            background-color: #5b096f;
-            transform: scale(1.2);
-        }
-
-        #result {
-            display: none; /* Hide initially */
-            margin-top: 50px;
-            padding: 50px;
-            font-size: 25px;
-            color: black;
-            background-color: #ADD8E6;
-            border-radius: 15px;
-            border: 2px solid black;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.5s ease;
-            transition: background-color 0.3s ease-in-out;
-            transform: scale(1.2);
-            position: relative;
-            overflow: hidden;
-            margin-left: 200px;
-            margin-right: 200px;
-            margin-bottom: 100px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
-
-    <script>
-        function performOperation(operationFunction) {
-            const setA = new Set(document.getElementById('setA').value.split(','));
-            const setB = new Set(document.getElementById('setB').value.split(','));
-
-            const result = window[operationFunction](setA, setB);
-            displayResult(result);
-
-            // Show the result section
-            document.getElementById('result').style.display = 'block';
-        }
-
-        // Set Operations Functions
-        // Union of sets A and B
-        function union(setA, setB) {
-            return new Set([...setA, ...setB]);
-        }
-
-        // Intersection of sets A and B
-        function intersection(setA, setB) {
-            return new Set([...setA].filter(x => setB.has(x)));
-        }
-
-        // Complement of set A with respect to set B
-        function complement(setA, setB) {
-            return new Set([...setA].filter(x => !setB.has(x)));
-        }
-
-        // Difference of sets A and B (complement of B in A)
-        function difference(setA, setB) {
-            return complement(setA, setB);
-        }
-
-        // Symmetric Difference of sets A and B
-        function symmetricDifference(setA, setB) {
-            return union(complement(setA, setB), complement(setB, setA));
-        }
-
-        // Power Set of set A
-        function powerSet(setA) {
-            const powerSet = [[]];
-
-            setA.forEach(element => {
-                const subsets = powerSet.map(subset => [...subset, element]);
-                powerSet.push(...subsets);
-            });
-
-            return powerSet.map(subset => new Set(subset.map(String)));
-        }
-
-        // Function to display the result
-        function displayResult(result) {
-            document.getElementById('result').textContent = `Result: { ${[...result].map(set => `{${[...set].join(',')}}`).join(', ')} }`;
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1 class="heading">SET OPERATIONS TOOL</h1>
@@ -150,5 +17,146 @@
     <button onclick="performOperation('symmetricDifference')">Symmetric Difference</button>
     <button onclick="performOperation('powerSet')">Power Set</button>
     <div id="result"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
+<!-- CSS Code-->
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #2980b9;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    font-size: 45px;
+    color: #fff;
+    margin-top: 50px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 18px;
+    color: #fff;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 0.1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+button {
+    padding: 15px;
+    cursor: pointer;
+    margin: 18px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out, transform 0.5s ease;
+}
+
+button:hover {
+    background-color: purple;
+    transform: scale(1.1);
+}
+
+#result {
+    display: none; /* Hide initially */
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 100px;
+    padding: 50px;
+    font-size: 25px;
+    color: black;
+    background-color: #ADD8E6;
+    border-radius: 15px;
+    border: 2px solid black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
+    transition: background-color 0.3s ease-in-out;
+    transform: scale(1.2);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 100px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>
+
+<!--JavaScript Code-->
+
+<script>
+function performOperation(operationFunction) {
+    const setA = new Set(document.getElementById('setA').value.split(','));
+    const setB = new Set(document.getElementById('setB').value.split(','));
+
+    const result = window[operationFunction](setA, setB);
+    displayResult(result);
+
+    // Show the result section
+    document.getElementById('result').style.display = 'block';
+}
+
+// Set Operations Functions
+// Union of sets A and B
+function union(setA, setB) {
+    return new Set([...setA, ...setB]);
+}
+
+// Intersection of sets A and B
+function intersection(setA, setB) {
+    return new Set([...setA].filter(x => setB.has(x)));
+}
+
+// Complement of set A with respect to set B
+function complement(setA, setB) {
+    return new Set([...setA].filter(x => !setB.has(x)));
+}
+
+// Difference of sets A and B (complement of B in A)
+function difference(setA, setB) {
+    return complement(setA, setB);
+}
+
+// Symmetric Difference of sets A and B
+function symmetricDifference(setA, setB) {
+    return union(complement(setA, setB), complement(setB, setA));
+}
+
+// Power Set of set A
+function powerSet(setA) {
+    const powerSet = [[]];
+
+    setA.forEach(element => {
+        const subsets = powerSet.map(subset => [...subset, element]);
+        powerSet.push(...subsets);
+    });
+
+    return powerSet.map(subset => new Set(subset.map(String)));
+}
+
+// Function to display the result
+function displayResult(result) {
+    document.getElementById('result').innerHTML = `Result: { ${[...result].map(set => `{${[...set].join(',')}}`).join(', ')} }`;
+}
+</script>
