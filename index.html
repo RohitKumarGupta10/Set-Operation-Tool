@@ -16,6 +16,8 @@
     <button onclick="performOperation('difference')">Difference</button>
     <button onclick="performOperation('symmetricDifference')">Symmetric Difference</button>
     <button onclick="performOperation('powerSet')">Power Set</button>
+    <button onclick="performOperation('cartesianProduct')">Cartesian Product</button>
+
     <div id="result"></div>
 
     <script src="script.js"></script>
@@ -154,6 +156,12 @@ function powerSet(setA) {
 
     return powerSet.map(subset => new Set(subset.map(String)));
 }
+
+// Cartesian Product of sets A and B
+function cartesianProduct(setA, setB) {
+    return [...setA].flatMap(elementA => [...setB].map(elementB => new Set([elementA, elementB])));
+}
+
 
 // Function to display the result
 function displayResult(result) {
