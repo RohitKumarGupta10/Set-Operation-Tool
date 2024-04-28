@@ -108,63 +108,78 @@ button:hover {
 <!--JavaScript Code-->
 
 <script>
+// Function to perform set operation based on the provided operationFunction
 function performOperation(operationFunction) {
+    // Retrieve values from HTML input fields and split them into arrays
     const setA = new Set(document.getElementById('setA').value.split(','));
     const setB = new Set(document.getElementById('setB').value.split(','));
 
+    // Call the specified operationFunction dynamically using bracket notation
     const result = window[operationFunction](setA, setB);
+    
+    // Display the result
     displayResult(result);
 
-    // Show the result section
+    // Show the result section by changing its display property to 'block'
     document.getElementById('result').style.display = 'block';
 }
 
 // Set Operations Functions
+
 // Union of sets A and B
 function union(setA, setB) {
+    // Create a new set by combining elements of setA and setB
     return new Set([...setA, ...setB]);
 }
 
 // Intersection of sets A and B
 function intersection(setA, setB) {
+    // Create a new set containing elements present in both setA and setB
     return new Set([...setA].filter(x => setB.has(x)));
 }
 
 // Complement of set A with respect to set B
 function complement(setA, setB) {
+    // Create a new set containing elements of setA not present in setB
     return new Set([...setA].filter(x => !setB.has(x)));
 }
 
 // Difference of sets A and B (complement of B in A)
 function difference(setA, setB) {
+    // Difference of sets is equivalent to the complement of setB in setA
     return complement(setA, setB);
 }
 
 // Symmetric Difference of sets A and B
 function symmetricDifference(setA, setB) {
+    // Symmetric difference is the union of complements of each set in the other
     return union(complement(setA, setB), complement(setB, setA));
 }
 
 // Power Set of set A
 function powerSet(setA) {
+    // Initialize power set with an empty set
     const powerSet = [[]];
 
+    // Generate all subsets of setA and add them to the power set
     setA.forEach(element => {
         const subsets = powerSet.map(subset => [...subset, element]);
         powerSet.push(...subsets);
     });
 
+    // Convert each subset into a set and return the power set
     return powerSet.map(subset => new Set(subset.map(String)));
 }
 
 // Cartesian Product of sets A and B
 function cartesianProduct(setA, setB) {
+    // Generate pairs of elements from setA and setB and form sets
     return [...setA].flatMap(elementA => [...setB].map(elementB => new Set([elementA, elementB])));
 }
 
-
 // Function to display the result
 function displayResult(result) {
+    // Convert the result into a formatted string and display it in the HTML
     document.getElementById('result').innerHTML = `Result: { ${[...result].map(set => `{${[...set].join(',')}}`).join(', ')} }`;
 }
 </script>
